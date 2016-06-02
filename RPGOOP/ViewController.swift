@@ -57,24 +57,26 @@ class ViewController: UIViewController {
     
     @IBAction func onAttackTapped(sender: UIButton) {
         
-        if enemy.attemptAttack(player.attackPwr) {
-            printLbl.text = "Attacked \(enemy.type) for \(player.attackPwr) HP"
-            enemyHpLbl.text = "\(enemy.hp) HP"
-        }
-        else {
-            printLbl.text = "Attack was unsuccessful!"
-        }
-        
-        if let loot = enemy.dropLoot() {
-            player.addItemToInventory(loot)
-            chestMessage = "\(player.name) found \(loot)"
-            chestBtn.hidden = false
-        }
-        
-        if !enemy.isAlive {
-            enemyHpLbl.text = ""
-            printLbl.text = "Killed \(enemy.type)"
-            enemyImg.hidden = true
+        if enemy.isAlive {
+            if enemy.attemptAttack(player.attackPwr) {
+                printLbl.text = "Attacked \(enemy.type) for \(player.attackPwr) HP"
+                enemyHpLbl.text = "\(enemy.hp) HP"
+            }
+            else {
+                printLbl.text = "Attack was unsuccessful!"
+            }
+            
+            if let loot = enemy.dropLoot() {
+                player.addItemToInventory(loot)
+                chestMessage = "\(player.name) found \(loot)"
+                chestBtn.hidden = false
+            }
+            
+            if !enemy.isAlive {
+                enemyHpLbl.text = ""
+                printLbl.text = "Killed \(enemy.type)"
+                enemyImg.hidden = true
+            }
         }
     }
 
